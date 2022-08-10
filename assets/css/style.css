@@ -1,0 +1,14 @@
+#check{
+	display: none;
+}
+
+label #btn{
+	position: absolute;
+	cursor: pointer;
+}
+label #btn{
+	left: 40px;
+	top: 25px;
+	font-size: 35px;
+	color: red;
+}

@@ -1,0 +1,8 @@
+#card1 .card .card-header{
+	display: flex;
+	justify-content: center;
+	width: 30%;
+	margin-top: 20px;
+	background-color: brown;
+	color: white;
+}
