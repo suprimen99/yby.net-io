@@ -7,11 +7,9 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">YBY.NET<sup>2</sup></div>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center">
+                <div class="sidebar-brand-text mx-3 img-thumbnail"><img
+                        src="<?=base_url('//assets/YBY.NET hitam.png')?>" width="150px" alt=""></div>
             </a>
 
             <!-- Divider -->
@@ -20,14 +18,14 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="<?= base_url('Monitoring_sensor/Grafiksensor') ?>">
+                <a class="nav-link" href="<?= base_url('Monitoring_sensor') ?>">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Dashboard</span></a>
             </li>
 
             <!-- Nav Item - Charts -->
             <li class="nav-item ">
-                <a class="nav-link" href="<?= base_url('Monitoring_sensor'); ?>">
+                <a class="nav-link" href="<?= base_url('Monitoring_sensor/sensor'); ?>">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>menu sensor</span></a>
             </li>

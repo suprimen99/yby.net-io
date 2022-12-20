@@ -10,10 +10,41 @@ class Monitoring_sensor extends CI_Controller
 		$this->load->model('M_Monitoring');
 		
 		
+		
 	}
 
-
 	public function index()
+	{
+		$user['user'] = $this->db->get_where('tb_user', ['username' => $this->session->userdata('username')])->row_array();
+		$data['judul'] = 'Grafik Sensor';
+		$data['graph'] = $this->M_Monitoring->graph();
+		// $test1 = $data['grafiksensor'][0];
+		// $test2 = $data['grafiksensor'][1];
+		// $test3 = $data['grafiksensor'][2];
+		// $test4 = $data['grafiksensor'][3];
+		// // var_dump($data['grafiksensor']); die;
+
+		// $ajax = [
+		// 	'waktu1' => $test1['Waktu'],
+		// 	'waktu2' => $test2['Waktu'],
+		// 	'waktu3' => $test3['Waktu'],
+		// 	'waktu4' => $test4['Waktu'],
+		// 	'suhu1' => $test1['suhu'],
+		// 	'suhu2' => $test2['suhu'],
+		// 	'suhu3' => $test3['suhu'],
+		// 	'suhu4' => $test4['suhu'],
+		// 	'kelembaban1' => $test1['kelembaban'],
+		// 	'kelembaban2' => $test2['kelembaban'],
+		// 	'kelembaban3' => $test3['kelembaban'],
+		// 	'kelembaban4' => $test4['kelembaban'],
+		// ];
+		$this->load->view('templates/header', $data);
+		$this->load->view('templates/sidebar');
+		$this->load->view('templates/topbar',$user);
+		$this->load->view('menu/grafiksensor', $data);
+		$this->load->view('templates/footer');
+	}
+	public function sensor()
 	{
 		$user['user'] = $this->db->get_where('tb_user', ['username' => $this->session->userdata('username')])->row_array();
 		$data['judul'] = 'Menu Sensor';
@@ -137,38 +168,7 @@ class Monitoring_sensor extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
-	public function Grafiksensor()
-	{
-		$user['user'] = $this->db->get_where('tb_user', ['username' => $this->session->userdata('username')])->row_array();
-		$data['judul'] = 'Grafik Sensor';
-		$data['grafiksensor'] = $this->M_Monitoring->chart_database();
-		$test1 = $data['grafiksensor'][0];
-		$test2 = $data['grafiksensor'][1];
-		$test3 = $data['grafiksensor'][2];
-		$test4 = $data['grafiksensor'][3];
-		// var_dump($data['grafiksensor']); die;
-
-		$ajax = [
-			'waktu1' => $test1['Waktu'],
-			'waktu2' => $test2['Waktu'],
-			'waktu3' => $test3['Waktu'],
-			'waktu4' => $test4['Waktu'],
-			'suhu1' => $test1['suhu'],
-			'suhu2' => $test2['suhu'],
-			'suhu3' => $test3['suhu'],
-			'suhu4' => $test4['suhu'],
-			'kelembaban1' => $test1['kelembaban'],
-			'kelembaban2' => $test2['kelembaban'],
-			'kelembaban3' => $test3['kelembaban'],
-			'kelembaban4' => $test4['kelembaban'],
-		];
-		$this->load->view('templates/header', $data);
-		$this->load->view('templates/sidebar');
-		$this->load->view('templates/topbar',$user);
-		$this->load->view('menu/grafiksensor', $data);
-		$this->load->view('templates/footer');
-		$this->load->view('templates/ajax_grafik', $ajax);
-	}
+	
 
 	public function cek_grafik()
 	{
@@ -212,14 +212,22 @@ class Monitoring_sensor extends CI_Controller
 		$this->output->set_content_type('application/json')->set_output(json_encode($output));
 	}
 
-	public function print()
+
+	public function Pdf()
 	{
 		$user['user'] = $this->db->get_where('tb_user', ['username' => $this->session->userdata('username')])->row_array();
-		$data['judul'] = 'Print';
-		$this->load->view('templates/header', $data);
+		$data['judul'] = 'Download';
 		$data['sensor'] = $this->M_Monitoring->Data();
-		$this->load->view('print', $data);
-	}
+		$this->load->view('templates/header', $data);
+		$this->load->view('laporan', $data);
+		
+		
+		
 
+		$mpdf = new \Mpdf\Mpdf();
+		$html = $this->load->view('laporan',[],true);
+		$mpdf->WriteHTML($html);
+		$mpdf->Output();
+	}
 	
 }

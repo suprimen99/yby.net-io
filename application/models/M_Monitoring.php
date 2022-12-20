@@ -4,6 +4,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class M_Monitoring extends CI_Model
 {
 
+	public function graph()
+	{
+		$this->db->select('*');
+		$this->db->from('tb_sensor');
+		$this->db->order_by('id', 'desc');
+		// $this->db->limit(16, 20);
+		// $this->db->group_by('tb_sensor.id');
+		$query = $this->db->get();
+		return $query->result();
+	}
+
 	public function Getdatasensor()
 	{
 		$this->db->select('*');

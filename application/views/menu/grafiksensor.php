@@ -1,13 +1,96 @@
-    <style>
+<!-- <script>
+var refreshid = setInterval(function() {
+    $('#myChart').load('< ?= base_url('views/menu/grafiksensor.php')?>')
+}, 3000);
+</script> -->
+
+
+<div class="container">
+    <div class="card">
+    </div>
+    <div class="card-body">
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script type="text/javascript">
+var ctx = document.getElementById('myChart').getContext('2d');
+var chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [
+            <?php
+            if (count($graph)>0) {
+              foreach ($graph as $data) {
+                echo "'" .$data->Waktu ."',";
+              }
+            }
+          ?>
+        ],
+        datasets: [{
+            label: 'suhu',
+            backgroundColor: 'rgba(52, 231, 43, 0.2)',
+            borderColor: 'rgba(52, 231, 43, 2)',
+            data: [
+                <?php
+                if (count($graph)>0) {
+                   foreach ($graph as $data) {
+                    echo $data->suhu . ", ";
+                  }
+                }
+              ?>
+            ]
+        }, {
+            label: 'kelembaban',
+            backgroundColor: 'rgba(239, 82, 93, 0.2)',
+            borderColor: 'rgba(239, 82, 82, 2)',
+            data: [
+                <?php
+                if (count($graph)>0) {
+                   foreach ($graph as $data) {
+                    echo $data->kelembaban . ", ";
+                  }
+                }
+              ?>
+            ]
+        }, {
+            label: 'asap',
+            backgroundColor: 'rgba(28, 72, 93, 0.2)',
+            borderColor: 'rgba(28, 72, 93, 2)',
+            data: [
+                <?php
+                if (count($graph)>0) {
+                   foreach ($graph as $data) {
+                    echo $data->asap . ", ";
+                  }
+                }
+              ?>
+            ]
+        }]
+    }
+});
+</script>
+
+
+
+
+
+
+
+
+
+<!-- 
+	<style>
 .highcharts-figure,
 .highcharts-data-table table {
     min-width: 310px;
     max-width: 800px;
-    margin: 1em auto;
+    margin: 1rem auto;
 }
 
 #container {
-    height: 400px;
+    height: 300px;
 }
 
 .highcharts-data-table table {
@@ -45,21 +128,4 @@
 .highcharts-data-table tr:hover {
     background: #f1f7ff;
 }
-    </style>
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div>
-                    <canvas id="myChart"></canvas>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <center>
-                    <div>
-                        <canvas id="myChart4"></canvas>
-                    </div>
-                </center>
-            </div>
-        </div>
-    </div>
+    </style> -->
